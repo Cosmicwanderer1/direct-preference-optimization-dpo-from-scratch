@@ -74,7 +74,7 @@ def masked_sequence_logprob(token_logprobs, mask):
     # TODO: Sum per-token log-probabilities under a binary mask to obtain a single sequence log-probability per example.
     
     token_logprobs = np.asarray(token_logprobs, dtype=np.float64)
-    mask == np.asarray(mask, dtype=np.float64)
+    mask = np.asarray(mask, dtype=np.float64)
 
     return np.sum(token_logprobs * mask, axis=-1, keepdims=False)
 
