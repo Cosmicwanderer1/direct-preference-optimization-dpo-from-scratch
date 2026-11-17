@@ -30,8 +30,22 @@ def log_softmax(logits, axis=-1):
     # 4. 相减得到 log-prob
     return z_shifted - log_sum_exp
 
-# Step 2 - softmax (not yet solved)
-# TODO: implement
+# Step 2 - softmax
+def softmax(logits, axis=-1):
+    # TODO: Convert an array of logits into a probability distribution along a given axis
+    
+    z = np.asarray(logits, dtype=np.float64)
+
+    m = np.max(z, axis=axis, keepdims=True)
+
+    z_shifted = z - m
+    
+    exp_shifted = np.exp(z_shifted)
+    
+    sum_exp = np.sum(exp_shifted, axis=axis, keepdims=True)
+
+
+    return exp_shifted / sum_exp
 
 # Step 3 - gather_token_logprobs (not yet solved)
 # TODO: implement
