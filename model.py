@@ -47,8 +47,27 @@ def softmax(logits, axis=-1):
 
     return exp_shifted / sum_exp
 
-# Step 3 - gather_token_logprobs (not yet solved)
-# TODO: implement
+# Step 3 - gather_token_logprobs
+def gather_token_logprobs(log_probs, token_ids):
+    # TODO: Extract the log-probability of each observed token from a full vocab log-prob tensor...
+    
+    """
+    log_probs: np.ndarray, shape (B, T, V)
+    token_ids: np.ndarray, shape (B, T), 整数
+    return:    np.ndarray, shape (B, T)
+    """
+
+    log_probs = np.asarray(log_probs, dtype=np.float64)
+    token_ids = np.asarray(token_ids)
+
+    # 1. 把 token_ids 扩成 (B, T, 1)，与 log_probs 的维度数对齐
+    idx = token_ids[..., None]
+
+    # 2. 沿最后一维（词表轴）按 idx 取值 → (B, T, 1)
+    gathered = np.take_along_axis(log_probs, idx, axis=-1)
+
+    # 3. 去掉尾部的 1 → (B, T)
+    return gathered[..., 0]
 
 # Step 4 - masked_sequence_logprob (not yet solved)
 # TODO: implement
