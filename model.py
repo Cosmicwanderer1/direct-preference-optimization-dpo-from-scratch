@@ -69,8 +69,14 @@ def gather_token_logprobs(log_probs, token_ids):
     # 3. 去掉尾部的 1 → (B, T)
     return gathered[..., 0]
 
-# Step 4 - masked_sequence_logprob (not yet solved)
-# TODO: implement
+# Step 4 - masked_sequence_logprob
+def masked_sequence_logprob(token_logprobs, mask):
+    # TODO: Sum per-token log-probabilities under a binary mask to obtain a single sequence log-probability per example.
+    
+    token_logprobs = np.asarray(token_logprobs, dtype=np.float64)
+    mask == np.asarray(mask, dtype=np.float64)
+
+    return np.sum(token_logprobs * mask, axis=-1, keepdims=False)
 
 # Step 5 - init_policy_params (not yet solved)
 # TODO: implement
